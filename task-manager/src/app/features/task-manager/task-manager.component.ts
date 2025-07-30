@@ -1,10 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from '../../core/models/task.model'
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-task-manager',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatListModule
+  ],
   templateUrl: './task-manager.component.html',
   styleUrls: ['./task-manager.component.scss']
 })
@@ -13,7 +32,7 @@ export class TaskManagerComponent implements OnInit {
   tasks: Task[] = [];
   filter: 'all' | 'completed' | 'incomplete' = 'all';
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();
@@ -39,7 +58,7 @@ export class TaskManagerComponent implements OnInit {
       isCompleted: false
     };
 
-    this.tasks.unshift(newTask); // New Task at top
+    this.tasks.unshift(newTask);
     this.taskTitle = '';
     this.updateLocalStorage();
   }
