@@ -1,38 +1,40 @@
 <div class="task-wrapper mat-elevation-z4">
-  <h2>Task Manager</h2>
+    <h2>Task Manager</h2>
 
-  <div class="input-row">
-    <mat-form-field class="full-width" appearance="fill">
-      <mat-label>New Task</mat-label>
-      <input matInput [(ngModel)]="taskTitle" (keyup.enter)="addTask()" />
-    </mat-form-field>
+    <div class="input-row">
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>New Task</mat-label>
+            <input matInput [(ngModel)]="taskTitle" (keyup.enter)="addTask()" />
+        </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="addTask()">Add</button>
-  </div>
+        <button mat-flat-button color="primary" (click)="addTask()">Add</button>
+    </div>
 
-  <div class="filter-buttons">
-    <button mat-button (click)="filter = 'all'" [color]="filter === 'all' ? 'accent' : ''">All</button>
-    <button mat-button (click)="filter = 'completed'" [color]="filter === 'completed' ? 'accent' : ''">Completed</button>
-    <button mat-button (click)="filter = 'incomplete'" [color]="filter === 'incomplete' ? 'accent' : ''">Incomplete</button>
-  </div>
+    <div class="filter-buttons">
+        <button mat-button (click)="filter = 'all'" [color]="filter === 'all' ? 'accent' : undefined">All</button>
+        <button mat-button (click)="filter = 'completed'"
+            [color]="filter === 'completed' ? 'accent' : undefined">Completed</button>
+        <button mat-button (click)="filter = 'incomplete'"
+            [color]="filter === 'incomplete' ? 'accent' : undefined">Incomplete</button>
+    </div>
 
-  <mat-list *ngIf="filteredTasks.length; else noTasks">
-    <mat-list-item *ngFor="let task of filteredTasks">
-      <mat-checkbox [(ngModel)]="task.isCompleted" (change)="toggleComplete(task)"></mat-checkbox>
+    <mat-list *ngIf="filteredTasks.length; else noTasks">
+        <mat-list-item *ngFor="let task of filteredTasks">
+            <input type="checkbox" [checked]="task.isCompleted" (change)="toggleComplete(task)" />
+            <span class="task-title" [ngClass]="{ done: task.isCompleted }" contenteditable
+                (blur)="updateLocalStorage()">
+                {{ task.title }}
+            </span>
 
-      <span class="task-title" [ngClass]="{ done: task.isCompleted }" contenteditable (blur)="updateLocalStorage()">
-        {{ task.title }}
-      </span>
+            <span class="date">{{ task.createdAt | date:'short' }}</span>
 
-      <span class="date">{{ task.createdAt | date:'short' }}</span>
+            <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
 
-      <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
-
-  <ng-template #noTasks>
-    <p class="empty">No tasks to show</p>
-  </ng-template>
+    <ng-template #noTasks>
+        <p class="empty">No tasks to show</p>
+    </ng-template>
 </div>

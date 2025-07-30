@@ -32,7 +32,7 @@ export class TaskManagerComponent implements OnInit {
   tasks: Task[] = [];
   filter: 'all' | 'completed' | 'incomplete' = 'all';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();
@@ -41,9 +41,12 @@ export class TaskManagerComponent implements OnInit {
   // Getter for filtering tasks based on the current filter
   get filteredTasks(): Task[] {
     switch (this.filter) {
-      case 'completed': return this.tasks.filter(t => t.isCompleted);
-      case 'incomplete': return this.tasks.filter(t => !t.isCompleted);
-      default: return this.tasks;
+      case 'completed':
+        return this.tasks.filter(t => t.isCompleted);
+      case 'incomplete':
+        return this.tasks.filter(t => !t.isCompleted);
+      default:
+        return this.tasks;
     }
   }
 
@@ -65,8 +68,11 @@ export class TaskManagerComponent implements OnInit {
 
   // Toggle task status
   toggleComplete(task: Task): void {
-    task.isCompleted = !task.isCompleted;
-    this.updateLocalStorage();
+    const index = this.tasks.findIndex(t => t.id === task.id);
+    if (index > -1) {
+      this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
+      this.updateLocalStorage();
+    }
   }
 
   // Remove a task by ID
