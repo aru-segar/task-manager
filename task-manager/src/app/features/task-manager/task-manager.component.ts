@@ -32,10 +32,14 @@ export class TaskManagerComponent implements OnInit {
   tasks: Task[] = [];
   filter: 'all' | 'completed' | 'incomplete' = 'all';
 
+  completedCount = 0;
+  pendingCount = 0;
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.tasks = this.taskService.getTasks();
+    this.updateTaskStats();
   }
 
   // Getter for filtering tasks based on the current filter
@@ -64,6 +68,7 @@ export class TaskManagerComponent implements OnInit {
     this.tasks.unshift(newTask);
     this.taskTitle = '';
     this.updateLocalStorage();
+    this.updateTaskStats();
   }
 
   // Toggle task status
@@ -72,6 +77,7 @@ export class TaskManagerComponent implements OnInit {
     if (index > -1) {
       this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
       this.updateLocalStorage();
+          this.updateTaskStats();
     }
   }
 
@@ -81,7 +87,31 @@ export class TaskManagerComponent implements OnInit {
     this.updateLocalStorage();
   }
 
+  // Save task in localStorage
   updateLocalStorage(): void {
     this.taskService.saveTasks(this.tasks);
+  }
+
+  // Setter for filters
+  setFilter(filter: 'all' | 'completed' | 'incomplete'): void {
+    this.filter = filter;
+  }
+
+  // Update counters
+  updateTaskStats(): void {
+    this.completedCount = this.tasks.filter(t => t.isCompleted).length;
+    this.pendingCount = this.tasks.length - this.completedCount;
+  }
+
+  // Get number of tasks in certain filters
+  getTaskCount(type: 'total' | 'completed' | 'pending'): number {
+    switch (type) {
+      case 'completed':
+        return this.tasks.filter(t => t.isCompleted).length;
+      case 'pending':
+        return this.tasks.filter(t => !t.isCompleted).length;
+      default:
+        return this.tasks.length;
+    }
   }
 }

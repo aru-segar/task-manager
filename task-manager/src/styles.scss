@@ -1,26 +1,61 @@
-@use '@angular/material' as mat; 
+// ✅ MATERIAL OVERRIDE (just style the app as dark and match Material manually)
 
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+// 🌍 Global base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
   height: 100%;
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  overflow-x: hidden;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 2rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Optional Material-like component overrides */
+.mat-form-field {
+  color: white;
+}
+
+.mat-input-element {
+  color: white;
+  caret-color: #8b5cf6;
+  background: #1e293b;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.mat-label {
+  color: #cbd5e1;
+}
+
+.mat-mdc-raised-button {
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  color: white;
+}
+
+.mat-mdc-checkbox {
+  --mdc-checkbox-unselected-icon-color: #94a3b8;
+  --mdc-checkbox-selected-icon-color: #10b981;
 }
