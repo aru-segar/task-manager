@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+
 import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,7 +43,7 @@ export class TaskManagerComponent implements OnInit {
     this.updateTaskStats();
   }
 
-  // Getter for filtering tasks based on the current filter
+  // Getter for returning tasks based on current filter
   get filteredTasks(): Task[] {
     switch (this.filter) {
       case 'completed':
@@ -71,23 +72,24 @@ export class TaskManagerComponent implements OnInit {
     this.updateTaskStats();
   }
 
-  // Toggle task status
+  // Toggle task status (complete/incomplete)
   toggleComplete(task: Task): void {
     const index = this.tasks.findIndex(t => t.id === task.id);
     if (index > -1) {
       this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
       this.updateLocalStorage();
-          this.updateTaskStats();
+      this.updateTaskStats();
     }
   }
 
-  // Remove a task by ID
+  // Delete task by ID
   deleteTask(id: string): void {
     this.tasks = this.tasks.filter(t => t.id !== id);
     this.updateLocalStorage();
+    this.updateTaskStats();
   }
 
-  // Save task in localStorage
+  // Save task to localStorage
   updateLocalStorage(): void {
     this.taskService.saveTasks(this.tasks);
   }
@@ -97,19 +99,19 @@ export class TaskManagerComponent implements OnInit {
     this.filter = filter;
   }
 
-  // Update counters
+  // Update stats for completed and pending tasks
   updateTaskStats(): void {
     this.completedCount = this.tasks.filter(t => t.isCompleted).length;
     this.pendingCount = this.tasks.length - this.completedCount;
   }
 
-  // Get number of tasks in certain filters
+  // Optional: reusable counter method
   getTaskCount(type: 'total' | 'completed' | 'pending'): number {
     switch (type) {
       case 'completed':
-        return this.tasks.filter(t => t.isCompleted).length;
+        return this.completedCount;
       case 'pending':
-        return this.tasks.filter(t => !t.isCompleted).length;
+        return this.pendingCount;
       default:
         return this.tasks.length;
     }
