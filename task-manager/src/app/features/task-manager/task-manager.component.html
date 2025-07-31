@@ -1,21 +1,24 @@
 <div class="task-wrapper">
+    <!-- Header -->
     <div class="header">
         <h2>Task Manager</h2>
         <div class="subtitle">Stay organized and productive</div>
     </div>
 
     <div class="content">
+        <!-- Input Field -->
         <div class="input-section">
             <div class="input-row">
                 <input matInput placeholder="What needs to be done?" [(ngModel)]="taskTitle" (keyup.enter)="addTask()"
                     class="task-input" />
                 <button class="add-button" (click)="addTask()">
-                    <span class="material-icons"></span>
+                    <span class="material-icons">add</span>
                     Add
                 </button>
             </div>
         </div>
 
+        <!-- Task Statistics -->
         <div class="task-stats">
             <div class="stat-item">
                 <span class="stat-number">{{ tasks.length }}</span>
@@ -31,6 +34,7 @@
             </div>
         </div>
 
+        <!-- Filters -->
         <div class="filter-section">
             <div class="filter-buttons">
                 <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'all' }"
@@ -42,6 +46,7 @@
             </div>
         </div>
 
+        <!-- Task List -->
         <div class="tasks-section">
             <div *ngIf="filteredTasks.length > 0; else emptyState" class="task-list">
                 <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{ 'completed': task.isCompleted }">
@@ -57,7 +62,7 @@
                 </div>
             </div>
 
-            <!-- Empty State -->
+            <!-- Empty State Template -->
             <ng-template #emptyState>
                 <div class="empty-state">
                     <div class="empty-icon">📝</div>
