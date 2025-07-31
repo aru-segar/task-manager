@@ -5,7 +5,6 @@
     </div>
 
     <div class="content">
-        <!-- Add Task Section -->
         <div class="input-section">
             <div class="input-row">
                 <input matInput placeholder="What needs to be done?" [(ngModel)]="taskTitle" (keyup.enter)="addTask()"
@@ -32,31 +31,40 @@
             </div>
         </div>
 
-        <div class="filter-buttons">
-            <button mat-button (click)="filter = 'all'" [color]="filter === 'all' ? 'accent' : undefined">All</button>
-            <button mat-button (click)="filter = 'completed'"
-                [color]="filter === 'completed' ? 'accent' : undefined">Completed</button>
-            <button mat-button (click)="filter = 'incomplete'"
-                [color]="filter === 'incomplete' ? 'accent' : undefined">Incomplete</button>
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'all' }"
+                    (click)="setFilter('all')">All</button>
+                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'completed' }"
+                    (click)="setFilter('completed')">Completed</button>
+                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'incomplete' }"
+                    (click)="setFilter('incomplete')">Pending</button>
+            </div>
         </div>
 
-        <mat-list *ngIf="filteredTasks.length; else noTasks">
-            <mat-list-item *ngFor="let task of filteredTasks">
-                <input type="checkbox" [checked]="task.isCompleted" (change)="toggleComplete(task)" />
-                <span class="task-title" [ngClass]="{ done: task.isCompleted }" contenteditable
-                    (blur)="updateLocalStorage()">
-                    {{ task.title }}
-                </span>
+        <div class="tasks-section">
+            <div *ngIf="filteredTasks.length > 0; else emptyState" class="task-list">
+                <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{ 'completed': task.isCompleted }">
+                    <mat-checkbox [checked]="task.isCompleted" (change)="toggleComplete(task)"
+                        class="task-checkbox"></mat-checkbox>
+                    <div class="task-content">
+                        <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">{{ task.title }}</div>
+                        <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
+                    </div>
+                    <button mat-icon-button color="warn" (click)="deleteTask(task.id)" class="delete-button">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
 
-                <span class="date">{{ task.createdAt | date:'short' }}</span>
-
-                <button mat-icon-button color="warn" (click)="deleteTask(task.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-list-item>
-        </mat-list>
-
-        <ng-template #noTasks>
-            <p class="empty">No tasks to show</p>
-        </ng-template>
+            <!-- Empty State -->
+            <ng-template #emptyState>
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <div class="empty-text">No tasks to show</div>
+                    <div class="empty-subtext">Add a task above to get started</div>
+                </div>
+            </ng-template>
+        </div>
     </div>
+</div>
