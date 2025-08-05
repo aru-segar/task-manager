@@ -36,6 +36,9 @@ export class TaskManagerComponent implements OnInit {
   completedCount = 0;
   pendingCount = 0;
 
+  editingTaskId: string | null = null;
+  editedTitle = '';
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
@@ -43,7 +46,7 @@ export class TaskManagerComponent implements OnInit {
     this.updateTaskStats();
   }
 
-  // Getter for returning tasks based on current filter
+  // Filtered tasks based on current filter setting
   get filteredTasks(): Task[] {
     switch (this.filter) {
       case 'completed':
@@ -94,7 +97,7 @@ export class TaskManagerComponent implements OnInit {
     this.taskService.saveTasks(this.tasks);
   }
 
-  // Setter for filters
+  // Set current filter
   setFilter(filter: 'all' | 'completed' | 'incomplete'): void {
     this.filter = filter;
   }
@@ -115,5 +118,31 @@ export class TaskManagerComponent implements OnInit {
       default:
         return this.tasks.length;
     }
+  }
+
+  // Start editing task
+  startEdit(task: Task): void {
+    this.editingTaskId = task.id;
+    this.editedTitle = task.title;
+  }
+
+  // Save edited task
+  saveEdit(task: Task): void {
+    if (!this.editedTitle.trim()) return;
+
+    const index = this.tasks.findIndex(t => t.id === task.id);
+    if (index > -1) {
+      this.tasks[index].title = this.editedTitle.trim();
+      this.updateLocalStorage();
+    }
+
+    this.editingTaskId = null;
+    this.editedTitle = '';
+  }
+
+  // Cancel editing
+  cancelEdit(): void {
+    this.editingTaskId = null;
+    this.editedTitle = '';
   }
 }

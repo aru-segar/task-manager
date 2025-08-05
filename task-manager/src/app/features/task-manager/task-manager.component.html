@@ -52,10 +52,32 @@
                 <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{ 'completed': task.isCompleted }">
                     <mat-checkbox [checked]="task.isCompleted" (change)="toggleComplete(task)"
                         class="task-checkbox"></mat-checkbox>
+
+                    <!-- Task Content with Edit Mode -->
                     <div class="task-content">
-                        <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">{{ task.title }}</div>
-                        <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
+                        <div *ngIf="editingTaskId === task.id; else viewMode" class="edit-mode">
+                            <input [(ngModel)]="editedTitle" class="edit-input" />
+                            <div class="edit-actions">
+                                <button mat-icon-button color="primary" (click)="saveEdit(task)">
+                                    <mat-icon>check</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="cancelEdit()">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- View Mode -->
+                        <ng-template #viewMode>
+                            <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">{{ task.title }}</div>
+                            <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
+                        </ng-template>
                     </div>
+
+                    <!-- Actions: Edit and Delete -->
+                    <button mat-icon-button color="accent" (click)="startEdit(task)" class="edit-button">
+                        <mat-icon>edit</mat-icon>
+                    </button>
                     <button mat-icon-button color="warn" (click)="deleteTask(task.id)" class="delete-button">
                         <mat-icon>delete</mat-icon>
                     </button>
