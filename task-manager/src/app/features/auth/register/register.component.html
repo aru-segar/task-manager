@@ -1,1 +1,20 @@
-<p>register works!</p>
+<div class="auth-container">
+  <h2>Register</h2>
+
+  <mat-form-field appearance="fill" class="auth-field">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="username" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="auth-field">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="email" type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="auth-field">
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="password" type="password" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="register()">Register</button>
+</div>
