@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-task-manager',
@@ -39,10 +40,17 @@ export class TaskManagerComponent implements OnInit {
   editingTaskId: string | null = null;
   editedTitle = '';
 
+  currentUser: User | null = null;
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.tasks = this.taskService.getTasks();
+    this.currentUser = this.getCurrentUser();
+
+    this.tasks = this.taskService.getTasks().filter(task => {
+      return task.userId === this.currentUser?.id || !task.userId;
+    });
+
     this.updateTaskStats();
   }
 
@@ -66,7 +74,8 @@ export class TaskManagerComponent implements OnInit {
       id: uuidv4(),
       title: this.taskTitle.trim(),
       createdAt: new Date(),
-      isCompleted: false
+      isCompleted: false,
+      userId: this.currentUser?.id
     };
 
     this.tasks.unshift(newTask);
@@ -144,5 +153,11 @@ export class TaskManagerComponent implements OnInit {
   cancelEdit(): void {
     this.editingTaskId = null;
     this.editedTitle = '';
+  }
+
+  // Get the current user
+  getCurrentUser(): User | null {
+    const userStr = localStorage.getItem('currentUser');
+    return userStr ? JSON.parse(userStr) : null;
   }
 }
