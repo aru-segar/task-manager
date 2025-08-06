@@ -1,44 +1,49 @@
 <div class="auth-container" [class.loading]="loading">
-  <h2 tabindex="0">Register</h2>
+  <form (submit)="register($event)" autocomplete="on">
+    <h2 tabindex="0">Register</h2>
 
-  <mat-form-field appearance="fill" class="auth-field">
-    <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="username" autocomplete="username" />
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="auth-field">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="auth-field">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="email" type="email" autocomplete="email" />
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="auth-field">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" name="email" type="email" autocomplete="email" />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="auth-field password-field">
-    <mat-label>Password</mat-label>
-    <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" autocomplete="new-password" />
-    <mat-icon class="password-toggle-icon" (click)="togglePasswordVisibility()">
-      {{ showPassword ? 'visibility_off' : 'visibility' }}
-    </mat-icon>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="auth-field password-field">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password"
+        autocomplete="new-password" />
+      <mat-icon class="password-toggle-icon" (click)="togglePasswordVisibility()">
+        {{ showPassword ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+    </mat-form-field>
 
-  <div class="password-strength" *ngIf="password">
-    Strength:
-    <span [ngClass]="getPasswordStrengthClass()">{{ getPasswordStrength() }}</span>
-  </div>
+    <div class="password-strength" *ngIf="password">
+      Strength:
+      <span [ngClass]="getPasswordStrengthClass()">{{ getPasswordStrength() }}</span>
+    </div>
 
-  <mat-form-field appearance="fill" class="auth-field">
-    <mat-label>Confirm Password</mat-label>
-    <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword"
-      autocomplete="new-password" />
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="auth-field">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" name="confirmPassword"
+        autocomplete="new-password" />
+    </mat-form-field>
 
-  <mat-checkbox [(ngModel)]="agreeTerms">I agree to the Terms & Conditions</mat-checkbox>
+    <mat-checkbox [(ngModel)]="agreeTerms" name="agreeTerms">
+      I agree to the Terms & Conditions
+    </mat-checkbox>
 
-  <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
-  <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
 
-  <div class="btn-group">
-  <button mat-raised-button color="primary" (click)="register()" [disabled]="loading" [class.loading]="loading">
-    {{ loading ? '' : 'Register' }}
-  </button>
-  <button mat-button color="warn" (click)="resetForm()">Reset</button>
-  </div>
+    <div class="btn-group">
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        {{ loading ? '' : 'Register' }}
+      </button>
+      <button mat-button color="warn" type="button" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
 </div>

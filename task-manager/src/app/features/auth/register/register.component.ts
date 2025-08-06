@@ -45,13 +45,16 @@ export class RegisterComponent {
 
   getPasswordStrengthClass(): string {
     const strength = this.getPasswordStrength();
-    if (strength === 'Weak') return 'text-red-400';
-    if (strength === 'Medium') return 'text-yellow-400';
-    if (strength === 'Strong') return 'text-green-400';
-    return 'text-gray-400';
+    return {
+      'Weak': 'text-red-400',
+      'Medium': 'text-yellow-400',
+      'Strong': 'text-green-400'
+    }[strength] || '';
   }
 
-  register(): void {
+  register(event?: Event): void {
+    if (event) event.preventDefault();
+
     this.errorMessage = '';
     this.successMessage = '';
 
