@@ -62,8 +62,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Controllers\\TaskController.cs",
               "ViewState": "AgIAADIAAAAAAAAAAAAzwDQAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T08:52:21.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T08:52:21.597Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Services\\TaskService.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAkwBQAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T08:38:21.434Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T08:38:21.434Z"
             },
             {
               "$type": "Document",
@@ -86,7 +84,7 @@
               "RelativeDocumentMoniker": "TaskManagerAPI\\Models\\TaskItem.cs",
               "ToolTip": "C:\\task-manager\\TaskManagerAPI\\TaskManagerAPI\\Models\\TaskItem.cs",
               "RelativeToolTip": "TaskManagerAPI\\Models\\TaskItem.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-06T06:44:44.864Z",
               "EditorCaption": ""
@@ -101,8 +99,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAgwBQAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T08:06:42.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T08:06:42.023Z"
             },
             {
               "$type": "Document",
@@ -114,8 +111,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Services\\AuthService.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAkwEEAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:39:44.748Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:39:44.748Z"
             },
             {
               "$type": "Document",
@@ -127,8 +123,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:22:25.11Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:22:25.11Z"
             },
             {
               "$type": "Document",
@@ -140,8 +135,7 @@
               "RelativeToolTip": "TaskManagerAPI\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-06T06:26:18.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:26:18.553Z"
             },
             {
               "$type": "Document",
@@ -153,8 +147,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:14:55.778Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:14:55.778Z"
             },
             {
               "$type": "Document",
@@ -166,8 +159,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Migrations\\20250806063010_InitialCreate.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAAwBgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:30:10.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:30:10.775Z"
             },
             {
               "$type": "Document",
@@ -179,8 +171,7 @@
               "RelativeToolTip": "TaskManagerAPI\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T06:19:43.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-06T06:19:43.067Z"
             }
           ]
         }

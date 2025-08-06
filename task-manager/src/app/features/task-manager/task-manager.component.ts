@@ -10,7 +10,6 @@ import { MatListModule } from '@angular/material/list';
 
 import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
-import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../core/models/user.model';
 
 @Component({
@@ -45,13 +44,20 @@ export class TaskManagerComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.currentUser = this.getCurrentUser();
+    this.loadTasks();
+  }
 
-    this.tasks = this.taskService.getTasks().filter(task => {
-      return task.userId === this.currentUser?.id || !task.userId;
+  // Load from backend
+  loadTasks(): void {
+    this.taskService.getTasks().subscribe({
+      next: (data) => {
+        this.tasks = data;
+        this.updateTaskStats();
+      },
+      error: (err) => {
+        console.error('Failed to load tasks', err);
+      }
     });
-
-    this.updateTaskStats();
   }
 
   // Filtered tasks based on current filter setting
@@ -70,40 +76,39 @@ export class TaskManagerComponent implements OnInit {
   addTask(): void {
     if (!this.taskTitle.trim()) return;
 
-    const newTask: Task = {
-      id: uuidv4(),
-      title: this.taskTitle.trim(),
-      createdAt: new Date(),
-      isCompleted: false,
-      userId: this.currentUser?.id
+    const newTask: Partial<Task> = {
+      title: this.taskTitle.trim()
     };
 
-    this.tasks.unshift(newTask);
-    this.taskTitle = '';
-    this.updateLocalStorage();
-    this.updateTaskStats();
+    this.taskService.createTask(newTask).subscribe({
+      next: (task) => {
+        this.tasks.unshift(task);
+        this.taskTitle = '';
+        this.updateTaskStats();
+      },
+      error: (err) => console.error('Failed to create task', err)
+    });
   }
 
   // Toggle task status (complete/incomplete)
   toggleComplete(task: Task): void {
-    const index = this.tasks.findIndex(t => t.id === task.id);
-    if (index > -1) {
-      this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
-      this.updateLocalStorage();
-      this.updateTaskStats();
-    }
+    task.isCompleted = !task.isCompleted;
+
+    this.taskService.updateTask(task).subscribe({
+      next: () => this.updateTaskStats(),
+      error: (err) => console.error('Failed to update task', err)
+    });
   }
 
   // Delete task by ID
   deleteTask(id: string): void {
-    this.tasks = this.tasks.filter(t => t.id !== id);
-    this.updateLocalStorage();
-    this.updateTaskStats();
-  }
-
-  // Save task to localStorage
-  updateLocalStorage(): void {
-    this.taskService.saveTasks(this.tasks);
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        this.tasks = this.tasks.filter(t => t.id !== id);
+        this.updateTaskStats();
+      },
+      error: (err) => console.error('Failed to delete task', err)
+    });
   }
 
   // Set current filter
@@ -139,25 +144,20 @@ export class TaskManagerComponent implements OnInit {
   saveEdit(task: Task): void {
     if (!this.editedTitle.trim()) return;
 
-    const index = this.tasks.findIndex(t => t.id === task.id);
-    if (index > -1) {
-      this.tasks[index].title = this.editedTitle.trim();
-      this.updateLocalStorage();
-    }
+    task.title = this.editedTitle.trim();
 
-    this.editingTaskId = null;
-    this.editedTitle = '';
+    this.taskService.updateTask(task).subscribe({
+      next: () => {
+        this.editingTaskId = null;
+        this.editedTitle = '';
+      },
+      error: (err) => console.error('Failed to update task', err)
+    });
   }
 
   // Cancel editing
   cancelEdit(): void {
     this.editingTaskId = null;
     this.editedTitle = '';
-  }
-
-  // Get the current user
-  getCurrentUser(): User | null {
-    const userStr = localStorage.getItem('currentUser');
-    return userStr ? JSON.parse(userStr) : null;
   }
 }
