@@ -1,0 +1,12 @@
+<nav class="navbar-wrapper">
+  <div class="navbar-content">
+    <div class="navbar-left">
+      <span class="app-title">Task Management System</span>
+    </div>
+
+    <div class="navbar-right" *ngIf="currentUser">
+      <span class="user-info">Hello, {{ currentUser.username }}</span>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </div>
+  </div>
+</nav>
