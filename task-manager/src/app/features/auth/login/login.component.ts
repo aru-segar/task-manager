@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +18,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -30,6 +32,8 @@ export class LoginComponent {
   errorMessage = '';
   loading = false;
 
+  constructor(private auth: AuthService, private router: Router) { }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
@@ -38,7 +42,6 @@ export class LoginComponent {
     if (event) event.preventDefault();
 
     this.errorMessage = '';
-
     if (!this.email || !this.password) {
       this.errorMessage = 'Email and password are required.';
       return;
@@ -46,18 +49,18 @@ export class LoginComponent {
 
     this.loading = true;
 
-    setTimeout(() => {
-      const mockUser = {
-        id: 'user-001',
-        username: 'Aruniga',
-        email: this.email,
-        createdAt: new Date()
-      };
+    const credentials = { email: this.email, password: this.password };
 
-      localStorage.setItem('currentUser', JSON.stringify(mockUser));
-
-      this.loading = false;
-      location.href = '/';
-    }, 1200);
+    this.auth.login(credentials).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Invalid login.';
+        this.loading = false;
+      }
+    });
   }
 }

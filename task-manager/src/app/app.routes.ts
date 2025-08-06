@@ -5,8 +5,13 @@ import { TaskManagerComponent } from './features/task-manager/task-manager.compo
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const appRoutes: Routes = [
-    { path: '', component: TaskManagerComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: '**', redirectTo: '' }
+    {
+        path: 'tasks',
+        component: TaskManagerComponent,
+        canActivate: [AuthGuard]
+    },
+    { path: '', redirectTo: 'tasks', pathMatch: 'full' },
+    { path: '**', redirectTo: 'tasks' }
 ];

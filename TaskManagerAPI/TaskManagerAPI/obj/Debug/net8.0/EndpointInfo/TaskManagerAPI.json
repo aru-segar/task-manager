@@ -245,7 +245,7 @@
     "securitySchemes": {
       "Bearer": {
         "type": "http",
-        "description": "Enter: Bearer {your JWT token}",
+        "description": "Enter: Bearer {your token}",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }

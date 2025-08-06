@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -33,23 +35,10 @@ export class RegisterComponent {
   successMessage = '';
   loading = false;
 
+  constructor(private auth: AuthService, private router: Router) {}
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
-  }
-
-  getPasswordStrength(): string {
-    if (this.password.length < 6) return 'Weak';
-    if (/[A-Z]/.test(this.password) && /\d/.test(this.password) && this.password.length >= 8) return 'Strong';
-    return 'Medium';
-  }
-
-  getPasswordStrengthClass(): string {
-    const strength = this.getPasswordStrength();
-    return {
-      'Weak': 'text-red-400',
-      'Medium': 'text-yellow-400',
-      'Strong': 'text-green-400'
-    }[strength] || '';
   }
 
   register(event?: Event): void {
@@ -63,9 +52,8 @@ export class RegisterComponent {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
-      this.errorMessage = 'Please enter a valid email.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
+      this.errorMessage = 'Enter a valid email.';
       return;
     }
 
@@ -75,38 +63,48 @@ export class RegisterComponent {
     }
 
     if (!this.agreeTerms) {
-      this.errorMessage = 'You must agree to the terms to register.';
-      return;
-    }
-
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    if (users.some((u: any) => u.email === this.email)) {
-      this.errorMessage = 'User already registered with this email.';
+      this.errorMessage = 'You must agree to the terms.';
       return;
     }
 
     this.loading = true;
 
     const newUser = {
-      id: 'user-' + Math.floor(Math.random() * 1000),
       username: this.username,
       email: this.email,
-      createdAt: new Date()
+      password: this.password
     };
 
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    this.auth.register(newUser).subscribe({
+      next: (response: any) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        this.successMessage = `Welcome, ${response.user.username}! Redirecting...`;
+        this.loading = false;
 
-    setTimeout(() => {
-      this.successMessage = `Registered as ${newUser.username}! Redirecting...`;
-      this.loading = false;
-
-      setTimeout(() => {
-        location.href = '/';
-      }, 1500);
-    }, 1200);
+        setTimeout(() => this.router.navigate(['/']), 1500);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Registration failed.';
+        this.loading = false;
+      }
+    });
   }
+
+  getPasswordStrength(): string {
+    if (this.password.length < 6) return 'Weak';
+    if (/[A-Z]/.test(this.password) && /\d/.test(this.password) && this.password.length >= 8) return 'Strong';
+    return 'Medium';
+  }
+
+  // getPasswordStrengthClass(): string {
+  //   const strength = this.getPasswordStrength();
+  //   return {
+  //     'Weak': 'text-red-400',
+  //     'Medium': 'text-yellow-400',
+  //     'Strong': 'text-green-400'
+  //   }[strength] || '';
+  // }
 
   resetForm(): void {
     this.username = '';
