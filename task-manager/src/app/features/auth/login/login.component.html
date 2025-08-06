@@ -1,14 +1,25 @@
-<div class="auth-container">
-  <h2>Login</h2>
+<div class="auth-container" [class.loading]="loading">
+  <h2 tabindex="0">Login</h2>
+
   <mat-form-field appearance="fill" class="auth-field">
     <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="email" type="email" />
+    <input matInput [(ngModel)]="email" type="email" autocomplete="email" />
   </mat-form-field>
 
-  <mat-form-field appearance="fill" class="auth-field">
+  <mat-form-field appearance="fill" class="auth-field password-field">
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="password" type="password" />
+    <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password"
+      autocomplete="current-password" />
+    <mat-icon class="password-toggle-icon" (click)="togglePasswordVisibility()">
+      {{ showPassword ? 'visibility_off' : 'visibility' }}
+    </mat-icon>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="login()">Login</button>
+  <mat-checkbox [(ngModel)]="rememberMe">Remember me</mat-checkbox>
+
+  <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <button mat-raised-button color="primary" (click)="login()" [disabled]="loading">
+    {{ loading ? '' : 'Login' }}
+  </button>
 </div>

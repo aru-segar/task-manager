@@ -4,10 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TaskManagerComponent } from './features/task-manager/task-manager.component';
-import { RegisterComponent } from './features/auth/register/register.component';
-import { LoginComponent } from './features/auth/login/login.component';
 
-bootstrapApplication(LoginComponent, {
+bootstrapApplication(TaskManagerComponent, {
   providers: [
     provideAnimations(),
     importProvidersFrom(FormsModule, CommonModule)
