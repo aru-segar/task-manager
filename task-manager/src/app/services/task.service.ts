@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class TaskService {
   private baseUrl = `${environment.apiUrl}/Task`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Helper to add the Authorization header
   private getAuthHeaders(): HttpHeaders {
@@ -20,7 +20,7 @@ export class TaskService {
     });
   }
 
-    // Get all tasks
+  // Get all tasks
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.baseUrl, {
       headers: this.getAuthHeaders()

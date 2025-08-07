@@ -6,11 +6,12 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Models;
 
 namespace TaskManagerAPI.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Models;
 
 namespace TaskManagerAPI.Services
 {
-    public class TaskService
+    public class TaskService : ITaskService
     {
         private readonly AppDbContext _context;
 

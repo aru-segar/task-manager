@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +15,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // === 2. Register App Services ===
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 // === 3. Configure CORS for Angular ===
 builder.Services.AddCors(options =>
