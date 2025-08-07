@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = `${environment.apiUrl}/auth`;
+  private baseUrl = `${environment.apiUrl}/Auth`;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: any) {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
+    return this.http.post(`${this.baseUrl}/login`, credentials, {
+      withCredentials: true 
+    });
   }
 
   register(data: any) {

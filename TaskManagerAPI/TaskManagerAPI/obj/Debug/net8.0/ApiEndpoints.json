@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "login",
-        "Type": "TaskManagerAPI.Models.User",
+        "Name": "request",
+        "Type": "TaskManagerAPI.Controllers.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -24,8 +24,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "TaskManagerAPI.Models.User",
+        "Name": "request",
+        "Type": "TaskManagerAPI.Controllers.RegisterRequest",
         "IsRequired": true
       }
     ],

@@ -1,7 +1,7 @@
 /* Wrapper and Container */
 .task-wrapper {
   max-width: 800px;
-  margin: 40px auto;
+  margin: 120px auto 40px auto; // ← added top margin (e.g., 120px)
   background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(32px);
   border-radius: 24px;

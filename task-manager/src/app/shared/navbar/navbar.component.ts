@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +9,19 @@ import { Router } from '@angular/router'
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class Navbar {
-  currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+export class Navbar implements OnInit {
+  currentUser: any = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    const storedUser = localStorage.getItem('currentUser');
+    this.currentUser = storedUser ? JSON.parse(storedUser) : null;
+  }
 
   logout(): void {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token'); // Optional
     this.router.navigate(['/login']);
   }
 }

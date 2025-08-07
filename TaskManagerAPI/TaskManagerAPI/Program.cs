@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,53 +9,50 @@ using TaskManagerAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure EF Core with SQL Server
+// === 1. Configure EF Core ===
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register Services
+// === 2. Register App Services ===
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<TaskService>();
 
-// Enable CORS for Angular frontend (http://localhost:4200)
+// === 3. Configure CORS for Angular ===
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials()
-    );
+    {
+        policy
+            .WithOrigins("http://localhost:4200") // Angular dev server
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
 
-// JWT Settings
+// === 4. Configure JWT Authentication ===
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
 
-// Configure JWT Authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = true;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtIssuer,
-        ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!))
-    };
-});
+        options.RequireHttpsMetadata = false; // Only for local dev
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!))
+        };
+    });
 
-// Authorization (Optional fallback policy to require auth globally)
+// === 5. Global Authorization Policy (Optional) ===
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -63,11 +60,10 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-// Add Controllers + Swagger
+// === 6. Add Controllers and Swagger ===
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Swagger Setup
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -77,7 +73,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API documentation for the Task Management System"
     });
 
-    // Add JWT to Swagger
+    // Add JWT support to Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -85,7 +81,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter: Bearer {your token}"
+        Description = "Enter 'Bearer {your token}'"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -106,7 +102,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Enable Swagger UI in Development
+// === 7. Configure Middleware Pipeline ===
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -115,7 +111,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Enable CORS (must come before auth)
+// MUST be placed before Authentication/Authorization
 app.UseCors("AllowAngularApp");
 
 app.UseAuthentication();
