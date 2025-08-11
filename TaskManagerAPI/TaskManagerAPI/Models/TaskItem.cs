@@ -1,4 +1,6 @@
-﻿namespace TaskManagerAPI.Models
+﻿using TaskManagerAPI.Models.Enums;
+
+namespace TaskManagerAPI.Models
 {
     public class TaskItem
     {
@@ -7,11 +9,12 @@
         public bool IsCompleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int Status { get; set; } = 0;
-        public bool isDeleted { get; set; } = false ;
+        public TaskItemStatus Status { get; set; } = TaskItemStatus.Pending;
+
+        public bool isDeleted { get; set; } = false;
         public DateTime? DeletedAt { get; set; }
 
-        public Guid userId { get; set; } // Foreign Key
+        public Guid userId { get; set; }
         public User? User { get; set; }
     }
 }

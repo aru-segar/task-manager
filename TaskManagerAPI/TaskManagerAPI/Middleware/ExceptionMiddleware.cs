@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using System.Text.Json;
 using TaskManagerAPI.Exceptions;
+using TaskManagerAPI.Responses;
 
 namespace TaskManagerAPI.Middleware
 {
@@ -25,13 +25,14 @@ namespace TaskManagerAPI.Middleware
             {
                 _logger.LogError(ex, ex.Message);
                 context.Response.StatusCode = ex.StatusCode;
-                await context.Response.WriteAsJsonAsync(new { error = ex.Message });
+                await context.Response.WriteAsJsonAsync(ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                await context.Response.WriteAsJsonAsync(new { error = "An unexpected error occurred." });
+                var status = (int)HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = status;
+                await context.Response.WriteAsJsonAsync(ApiResponse<object>.Fail("An unexpected error occurred.", status));
             }
         }
     }

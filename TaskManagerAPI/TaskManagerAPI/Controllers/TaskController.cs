@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TaskManagerAPI.Interfaces;
+using TaskManagerAPI.Interfaces; // or Services if not using interfaces
 using TaskManagerAPI.Models;
-using TaskManagerAPI.Services;
+using TaskManagerAPI.Responses;
+using TaskManagerAPI.Exceptions;
 
 namespace TaskManagerAPI.Controllers
 {
@@ -19,54 +20,109 @@ namespace TaskManagerAPI.Controllers
             _taskService = taskService;
         }
 
-        // Helper: Get logged-in UserId from JWT
         private Guid GetUserId()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return Guid.TryParse(userIdClaim, out var userId) ? userId : Guid.Empty;
         }
 
-        // Get tasks
         [HttpGet]
         public async Task<IActionResult> GetMyTasks()
         {
-            var tasks = await _taskService.GetTasksForUserAsync(GetUserId());
-            return Ok(tasks);
+            try
+            {
+                var tasks = await _taskService.GetTasksForUserAsync(GetUserId());
+                return Ok(ApiResponse<List<TaskItem>>.Ok(tasks));
+            }
+            catch (AppException ex)
+            {
+                return StatusCode(ex.StatusCode, ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
+            }
         }
 
-        // Create task
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TaskItem task)
         {
-            task.Id = Guid.NewGuid();
-            task.userId = GetUserId();
-            task.CreatedAt = DateTime.UtcNow;
-            task.IsCompleted = false;
+            if (string.IsNullOrWhiteSpace(task.Title))
+                return BadRequest(ApiResponse<object>.Fail("Title is required.", 400));
 
-            var created = await _taskService.CreateTaskAsync(task);
-            return CreatedAtAction(nameof(GetMyTasks), new { id = created.Id }, created);
+            try
+            {
+                task.Id = Guid.NewGuid();
+                task.userId = GetUserId();
+                task.CreatedAt = DateTime.UtcNow;
+                task.IsCompleted = false;
+
+                var created = await _taskService.CreateTaskAsync(task);
+                return CreatedAtAction(nameof(GetMyTasks), new { id = created.Id }, ApiResponse<TaskItem>.Ok(created));
+            }
+            catch (AppException ex)
+            {
+                return StatusCode(ex.StatusCode, ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
+            }
         }
 
-        // Update task
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] TaskItem updated)
         {
-            var existing = await _taskService.UpdateTaskAsync(new TaskItem
-            {
-                Id = id,
-                Title = updated.Title,
-                IsCompleted = updated.IsCompleted
-            });
+            if (id == Guid.Empty)
+                return BadRequest(ApiResponse<object>.Fail("Invalid task id.", 400));
 
-            return existing == null ? NotFound() : Ok(existing);
+            if (string.IsNullOrWhiteSpace(updated.Title))
+                return BadRequest(ApiResponse<object>.Fail("Title is required.", 400));
+
+            try
+            {
+                var existing = await _taskService.UpdateTaskAsync(new TaskItem
+                {
+                    Id = id,
+                    Title = updated.Title,
+                    IsCompleted = updated.IsCompleted
+                });
+
+                return existing == null
+                    ? NotFound(ApiResponse<object>.Fail("Task not found.", 404))
+                    : Ok(ApiResponse<TaskItem>.Ok(existing));
+            }
+            catch (AppException ex)
+            {
+                return StatusCode(ex.StatusCode, ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
+            }
         }
 
-        // Soft delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var result = await _taskService.DeleteTaskAsync(id, GetUserId());
-            return result ? NoContent() : NotFound();
+            if (id == Guid.Empty)
+                return BadRequest(ApiResponse<object>.Fail("Invalid task id.", 400));
+
+            try
+            {
+                var result = await _taskService.DeleteTaskAsync(id, GetUserId());
+                return result
+                    ? NoContent()
+                    : NotFound(ApiResponse<object>.Fail("Task not found.", 404));
+            }
+            catch (AppException ex)
+            {
+                return StatusCode(ex.StatusCode, ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
+            }
         }
     }
 }

@@ -38,7 +38,6 @@ C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\staticwebassets.b
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\staticwebassets.development.json
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\TaskMana.7A261BF7.Up2Date
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\TaskManagerAPI.dll
 C:\task-manager\TaskManagerAPI\TaskManagerAPI\obj\Debug\net8.0\refint\TaskManagerAPI.dll

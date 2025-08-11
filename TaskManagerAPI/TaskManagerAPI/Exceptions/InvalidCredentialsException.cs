@@ -2,6 +2,7 @@
 {
     public class InvalidCredentialsException : AppException
     {
-        public InvalidCredentialsException() : base("Invalid email or password.", 401) { }
+        public InvalidCredentialsException()
+            : base("Invalid email or password.", 401) { }
     }
 }
