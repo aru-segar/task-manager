@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Exceptions;
 using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Models;
 
@@ -25,7 +26,7 @@ namespace TaskManagerAPI.Services
         public async Task<User?> Register(string username, string email, string password)
         {
             if (await _context.Users.AnyAsync(u => u.Email == email))
-                return null;
+                throw new UserAlreadyExistsException();
 
             var hashedPassword = HashPassword(password);
 
@@ -46,7 +47,7 @@ namespace TaskManagerAPI.Services
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null || !VerifyPassword(password, user.PasswordHash))
-                return null;
+                throw new InvalidCredentialsException();
 
             return user;
         }

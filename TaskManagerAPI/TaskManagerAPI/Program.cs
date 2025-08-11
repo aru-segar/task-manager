@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using TaskManagerAPI.Data;
 using TaskManagerAPI.Interfaces;
+using TaskManagerAPI.Middleware;
 using TaskManagerAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -109,6 +110,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

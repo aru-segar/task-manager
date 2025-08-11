@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Models;
 using TaskManagerAPI.Services;
@@ -49,14 +51,26 @@ namespace TaskManagerAPI.Controllers
     // DTOs for cleaner API contracts
     public class RegisterRequest
     {
-        public required string Username { get; set; }
-        public required string Email { get; set; }
-        public required string Password { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Username { get; set; } = null;
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null;
+
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; } = null;
     }
 
     public class LoginRequest
     {
-        public required string Email { get; set; }
-        public required string Password { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null;
+
+        [Required]
+        public string Password { get; set; } = null;
     }
 }
