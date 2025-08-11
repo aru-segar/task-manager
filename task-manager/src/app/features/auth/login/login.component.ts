@@ -30,6 +30,7 @@ export class LoginComponent {
   showPassword = false;
   rememberMe = false;
   errorMessage = '';
+  fieldErrors: Record<string, string[]> = {};
   loading = false;
 
   constructor(private auth: AuthService, private router: Router) { }
@@ -40,15 +41,15 @@ export class LoginComponent {
 
   login(event?: Event): void {
     if (event) event.preventDefault();
-
     this.errorMessage = '';
+    this.fieldErrors = {};
+
     if (!this.email || !this.password) {
       this.errorMessage = 'Email and password are required.';
       return;
     }
 
     this.loading = true;
-
     const credentials = { email: this.email, password: this.password };
 
     this.auth.login(credentials).subscribe({
@@ -57,8 +58,9 @@ export class LoginComponent {
         localStorage.setItem('currentUser', JSON.stringify(response.user));
         this.router.navigate(['/']);
       },
-      error: (err) => {
-        this.errorMessage = err.error?.message || 'Invalid login.';
+      error: (e) => {
+        this.errorMessage = e?.message || 'Invalid login.';
+        this.fieldErrors = e?.details ?? {};
         this.loading = false;
       }
     });

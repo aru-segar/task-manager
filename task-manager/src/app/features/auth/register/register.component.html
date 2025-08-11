@@ -5,11 +5,13 @@
     <mat-form-field appearance="fill" class="auth-field">
       <mat-label>Username</mat-label>
       <input matInput [(ngModel)]="username" name="username" autocomplete="username" />
+      <div class="message error" *ngIf="fieldErrors['Username']?.length">{{ fieldErrors['Username'][0] }}</div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="auth-field">
       <mat-label>Email</mat-label>
       <input matInput [(ngModel)]="email" name="email" type="email" autocomplete="email" />
+      <div class="message error" *ngIf="fieldErrors['Email']?.length">{{ fieldErrors['Email'][0] }}</div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="auth-field password-field">
@@ -19,17 +21,15 @@
       <mat-icon class="password-toggle-icon" (click)="togglePasswordVisibility()">
         {{ showPassword ? 'visibility_off' : 'visibility' }}
       </mat-icon>
+      <div class="message error" *ngIf="fieldErrors['Password']?.length">{{ fieldErrors['Password'][0] }}</div>
     </mat-form-field>
-
-    <!-- <div class="password-strength" *ngIf="password">
-      Strength:
-      <span [ngClass]="getPasswordStrengthClass()">{{ getPasswordStrength() }}</span>
-    </div> -->
 
     <mat-form-field appearance="fill" class="auth-field">
       <mat-label>Confirm Password</mat-label>
       <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" name="confirmPassword"
         autocomplete="new-password" />
+      <div class="message error" *ngIf="fieldErrors['ConfirmPassword']?.length">{{ fieldErrors['ConfirmPassword'][0] }}
+      </div>
     </mat-form-field>
 
     <mat-checkbox [(ngModel)]="agreeTerms" name="agreeTerms">

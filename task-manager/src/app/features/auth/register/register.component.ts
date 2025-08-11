@@ -33,6 +33,7 @@ export class RegisterComponent {
   showPassword = false;
   errorMessage = '';
   successMessage = '';
+  fieldErrors: Record<string, string[]> = {}; 
   loading = false;
 
   constructor(private auth: AuthService, private router: Router) {}
@@ -46,6 +47,7 @@ export class RegisterComponent {
 
     this.errorMessage = '';
     this.successMessage = '';
+    this.fieldErrors = {};
 
     if (!this.username || !this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'All fields are required.';
@@ -84,8 +86,9 @@ export class RegisterComponent {
 
         setTimeout(() => this.router.navigate(['/']), 1500);
       },
-      error: (err) => {
-        this.errorMessage = err.error?.message || 'Registration failed.';
+      error: (e) => {
+        this.errorMessage = e?.message || 'Registration failed.';
+        this.fieldErrors = e?.details ?? {};
         this.loading = false;
       }
     });

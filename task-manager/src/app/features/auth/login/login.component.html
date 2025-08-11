@@ -5,6 +5,7 @@
     <mat-form-field appearance="fill" class="auth-field">
       <mat-label>Email</mat-label>
       <input matInput [(ngModel)]="email" name="email" type="email" autocomplete="email" />
+      <div class="message error" *ngIf="fieldErrors['Email']?.length">{{ fieldErrors['Email'][0] }}</div>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="auth-field password-field">
@@ -14,8 +15,9 @@
       <mat-icon class="password-toggle-icon" (click)="togglePasswordVisibility()">
         {{ showPassword ? 'visibility_off' : 'visibility' }}
       </mat-icon>
+      <div class="message error" *ngIf="fieldErrors['Password']?.length">{{ fieldErrors['Password'][0] }}</div>
     </mat-form-field>
-
+    
     <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe">Remember me</mat-checkbox>
 
     <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
