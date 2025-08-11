@@ -238,8 +238,7 @@
             "format": "date-time"
           },
           "status": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/TaskItemStatus"
           },
           "isDeleted": {
             "type": "boolean"
@@ -258,6 +257,15 @@
           }
         },
         "additionalProperties": false
+      },
+      "TaskItemStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "User": {
         "type": "object",
