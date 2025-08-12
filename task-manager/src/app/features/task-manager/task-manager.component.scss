@@ -1,7 +1,7 @@
 /* Wrapper and Container */
 .task-wrapper {
   max-width: 800px;
-  margin: 120px auto 40px auto; // ← added top margin (e.g., 120px)
+  margin: 120px auto 40px auto;
   background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(32px);
   border-radius: 24px;
@@ -17,10 +17,7 @@
   &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background:
       radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.1) 0%, transparent 2%),
       radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.08) 0%, transparent 2%),
@@ -273,6 +270,10 @@
       font-size: 1.1rem;
       font-weight: 600;
       color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .task-date {
@@ -307,6 +308,36 @@
       font-size: 20px;
       color: inherit;
     }
+  }
+}
+
+/* Status chip */
+.status-chip {
+  margin-left: .25rem;
+  padding: .125rem .5rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  border: 1px solid transparent;
+  user-select: none;
+
+  &.pending {
+    background: rgba(234, 179, 8, 0.12);
+    color: #facc15;
+    border-color: rgba(234, 179, 8, 0.25);
+  }
+
+  &.inprogress {
+    background: rgba(59, 130, 246, 0.12);
+    color: #93c5fd;
+    border-color: rgba(59, 130, 246, 0.25);
+  }
+
+  &.completed {
+    background: rgba(34, 197, 94, 0.12);
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.25);
   }
 }
 

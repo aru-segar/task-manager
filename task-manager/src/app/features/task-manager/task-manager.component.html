@@ -69,7 +69,14 @@
 
                         <!-- View Mode -->
                         <ng-template #viewMode>
-                            <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">{{ task.title }}</div>
+                            <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">
+                                {{ task.title }}
+                                <!-- Status chip -->
+                                <span class="status-chip" [class.pending]="task.status === TaskItemStatus.Pending"
+                                    [class.inprogress]="task.status === TaskItemStatus.InProgress"
+                                    [class.completed]="task.status === TaskItemStatus.Completed">{{
+                                    statusLabel(task.status) }}</span>
+                            </div>
                             <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
                         </ng-template>
                     </div>

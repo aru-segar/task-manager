@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
 import { User } from '../../core/models/user.model';
+import { TASK_STATUS_OPTIONS, TaskItemStatus, taskStatusToLabel } from '../../core/enums/task-item-status.enum';
 
 @Component({
   selector: 'app-task-manager',
@@ -41,6 +42,9 @@ export class TaskManagerComponent implements OnInit {
 
   currentUser: User | null = null;
 
+  TaskItemStatus = TaskItemStatus;
+  statusOptions = TASK_STATUS_OPTIONS;
+
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class TaskManagerComponent implements OnInit {
   loadTasks(): void {
     this.taskService.getTasks().subscribe({
       next: (data) => {
-        this.tasks = data;
+        this.tasks = Array.isArray(data) ? data : [];
         this.updateTaskStats();
       },
       error: (err) => {
@@ -64,9 +68,9 @@ export class TaskManagerComponent implements OnInit {
   get filteredTasks(): Task[] {
     switch (this.filter) {
       case 'completed':
-        return this.tasks.filter(t => t.isCompleted);
+        return this.tasks.filter(t => t.status === TaskItemStatus.Completed);
       case 'incomplete':
-        return this.tasks.filter(t => !t.isCompleted);
+        return this.tasks.filter(t => t.status !== TaskItemStatus.Completed);
       default:
         return this.tasks;
     }
@@ -77,11 +81,14 @@ export class TaskManagerComponent implements OnInit {
     if (!this.taskTitle.trim()) return;
 
     const newTask: Partial<Task> = {
-      title: this.taskTitle.trim()
+      title: this.taskTitle.trim(),
+      status: TaskItemStatus.Pending,
+      isCompleted: false,
     };
 
     this.taskService.createTask(newTask).subscribe({
       next: (task) => {
+        if (!Array.isArray(this.tasks)) this.tasks = [];
         this.tasks.unshift(task);
         this.taskTitle = '';
         this.updateTaskStats();
@@ -93,6 +100,7 @@ export class TaskManagerComponent implements OnInit {
   // Toggle task status (complete/incomplete)
   toggleComplete(task: Task): void {
     task.isCompleted = !task.isCompleted;
+    task.status = task.isCompleted ? TaskItemStatus.Completed : TaskItemStatus.Pending;
 
     this.taskService.updateTask(task).subscribe({
       next: () => this.updateTaskStats(),
@@ -118,8 +126,9 @@ export class TaskManagerComponent implements OnInit {
 
   // Update stats for completed and pending tasks
   updateTaskStats(): void {
-    this.completedCount = this.tasks.filter(t => t.isCompleted).length;
-    this.pendingCount = this.tasks.length - this.completedCount;
+    const list = Array.isArray(this.tasks) ? this.tasks : [];
+    this.completedCount = this.tasks.filter(t => t.status === TaskItemStatus.Completed).length;
+    this.pendingCount = list.length - this.completedCount;
   }
 
   // Optional: reusable counter method
@@ -159,5 +168,10 @@ export class TaskManagerComponent implements OnInit {
   cancelEdit(): void {
     this.editingTaskId = null;
     this.editedTitle = '';
+  }
+
+  // Label helper for template
+  statusLabel(s: TaskItemStatus | null | undefined): string {
+    return taskStatusToLabel(s ?? null);
   }
 }

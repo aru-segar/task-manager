@@ -1,10 +1,12 @@
+import { TaskItemStatus } from "../enums/task-item-status.enum";
+
 export interface Task {
     id: string;
     title: string;
     createdAt: Date;
     isCompleted: boolean;
 
-    status?: number;
+    status?: TaskItemStatus;
     isDeleted?: boolean;
     deletedAt?: Date | null;
     userId?: string;
