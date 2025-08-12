@@ -18,41 +18,56 @@
             </div>
         </div>
 
-        <!-- Task Statistics -->
+        <!-- Task Statistics (numbers above labels) -->
         <div class="task-stats">
             <div class="stat-item">
                 <span class="stat-number">{{ tasks.length }}</span>
-                <span class="stat-label">TOTAL</span>
+                <span class="stat-label">Total</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">{{ completedCount }}</span>
-                <span class="stat-label">COMPLETED</span>
+                <span class="stat-label">Completed</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">{{ pendingCount }}</span>
-                <span class="stat-label">PENDING</span>
+                <span class="stat-label">Pending</span>
             </div>
         </div>
 
         <!-- Filters -->
         <div class="filter-section">
             <div class="filter-buttons">
-                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'all' }"
-                    (click)="setFilter('all')">All</button>
-                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'completed' }"
-                    (click)="setFilter('completed')">Completed</button>
-                <button mat-button class="filter-button" [ngClass]="{ 'active': filter === 'incomplete' }"
-                    (click)="setFilter('incomplete')">Pending</button>
+                <button mat-button class="filter-button" [ngClass]="{ active: filter === 'all' }"
+                    (click)="setFilter('all')">
+                    All
+                </button>
+
+                <button mat-button class="filter-button" [ngClass]="{ active: filter === 'inprogress' }"
+                    (click)="setFilter('inprogress')">
+                    In Progress
+                </button>
+
+                <button mat-button class="filter-button" [ngClass]="{ active: filter === 'completed' }"
+                    (click)="setFilter('completed')">
+                    Completed
+                </button>
+
+                <button mat-button class="filter-button" [ngClass]="{ active: filter === 'incomplete' }"
+                    (click)="setFilter('incomplete')">
+                    Pending
+                </button>
             </div>
         </div>
 
         <!-- Task List -->
         <div class="tasks-section">
             <div *ngIf="filteredTasks.length > 0; else emptyState" class="task-list">
-                <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{ 'completed': task.isCompleted }">
-                    <mat-checkbox [checked]="task.isCompleted" (change)="toggleComplete(task)"
-                        class="task-checkbox"></mat-checkbox>
-
+                <div *ngFor="let task of filteredTasks" class="task-item" [ngClass]="{
+            completed: task.isCompleted,
+            'status-pending': task.status === TaskItemStatus.Pending,
+            'status-inprogress': task.status === TaskItemStatus.InProgress,
+            'status-completed': task.status === TaskItemStatus.Completed
+          }">
                     <!-- Task Content with Edit Mode -->
                     <div class="task-content">
                         <div *ngIf="editingTaskId === task.id; else viewMode" class="edit-mode">
@@ -69,25 +84,39 @@
 
                         <!-- View Mode -->
                         <ng-template #viewMode>
-                            <div class="task-title" [ngClass]="{ 'completed': task.isCompleted }">
+                            <div class="task-title" [ngClass]="{ completed: task.isCompleted }">
                                 {{ task.title }}
-                                <!-- Status chip -->
-                                <span class="status-chip" [class.pending]="task.status === TaskItemStatus.Pending"
-                                    [class.inprogress]="task.status === TaskItemStatus.InProgress"
-                                    [class.completed]="task.status === TaskItemStatus.Completed">{{
-                                    statusLabel(task.status) }}</span>
                             </div>
-                            <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
+
+                            <div class="task-meta-row">
+                                <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
+
+                                <!-- Compact, outlined status chips -->
+                                <mat-chip-listbox class="status-chips" [value]="task.status"
+                                    (change)="onStatusChipChange(task, $event.value)" aria-label="Task status">
+                                    <mat-chip-option [value]="TaskItemStatus.Pending" class="chip chip-pending">
+                                        Pending
+                                    </mat-chip-option>
+                                    <mat-chip-option [value]="TaskItemStatus.InProgress" class="chip chip-inprogress">
+                                        In&nbsp;Progress
+                                    </mat-chip-option>
+                                    <mat-chip-option [value]="TaskItemStatus.Completed" class="chip chip-completed">
+                                        Completed
+                                    </mat-chip-option>
+                                </mat-chip-listbox>
+                            </div>
                         </ng-template>
                     </div>
 
                     <!-- Actions: Edit and Delete -->
-                    <button mat-icon-button color="accent" (click)="startEdit(task)" class="edit-button">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="warn" (click)="deleteTask(task.id)" class="delete-button">
-                        <mat-icon>delete</mat-icon>
-                    </button>
+                    <div class="row-actions">
+                        <button mat-icon-button color="accent" (click)="startEdit(task)" class="edit-button">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="deleteTask(task.id)" class="delete-button">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
 

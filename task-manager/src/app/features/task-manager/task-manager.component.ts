@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { Task } from '../../../app/core/models/task.model';
 import { TaskService } from '../../services/task.service';
@@ -22,9 +22,9 @@ import { TASK_STATUS_OPTIONS, TaskItemStatus, taskStatusToLabel } from '../../co
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCheckboxModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatChipsModule
   ],
   templateUrl: './task-manager.component.html',
   styleUrls: ['./task-manager.component.scss']
@@ -32,7 +32,7 @@ import { TASK_STATUS_OPTIONS, TaskItemStatus, taskStatusToLabel } from '../../co
 export class TaskManagerComponent implements OnInit {
   taskTitle = '';
   tasks: Task[] = [];
-  filter: 'all' | 'completed' | 'incomplete' = 'all';
+  filter: 'all' | 'inprogress' | 'completed' | 'incomplete' = 'all';
 
   completedCount = 0;
   pendingCount = 0;
@@ -58,32 +58,32 @@ export class TaskManagerComponent implements OnInit {
         this.tasks = Array.isArray(data) ? data : [];
         this.updateTaskStats();
       },
-      error: (err) => {
-        console.error('Failed to load tasks', err);
-      }
+      error: (err) => console.error('Failed to load tasks', err)
     });
   }
 
   // Filtered tasks based on current filter setting
   get filteredTasks(): Task[] {
     switch (this.filter) {
+      case 'inprogress':
+        return this.tasks.filter((t) => t.status === TaskItemStatus.InProgress);
       case 'completed':
-        return this.tasks.filter(t => t.status === TaskItemStatus.Completed);
+        return this.tasks.filter((t) => t.status === TaskItemStatus.Completed);
       case 'incomplete':
-        return this.tasks.filter(t => t.status !== TaskItemStatus.Completed);
+        return this.tasks.filter((t) => t.status !== TaskItemStatus.Completed);
       default:
         return this.tasks;
     }
   }
 
-  // Add new task with date and unique ID
+  // Add new task
   addTask(): void {
     if (!this.taskTitle.trim()) return;
 
     const newTask: Partial<Task> = {
       title: this.taskTitle.trim(),
       status: TaskItemStatus.Pending,
-      isCompleted: false,
+      isCompleted: false
     };
 
     this.taskService.createTask(newTask).subscribe({
@@ -97,14 +97,15 @@ export class TaskManagerComponent implements OnInit {
     });
   }
 
-  // Toggle task status (complete/incomplete)
-  toggleComplete(task: Task): void {
-    task.isCompleted = !task.isCompleted;
-    task.status = task.isCompleted ? TaskItemStatus.Completed : TaskItemStatus.Pending;
+  /** chip-based status change */
+  onStatusChipChange(task: Task, value: TaskItemStatus): void {
+    if (task.status === value) return;
+    task.status = value;
+    task.isCompleted = value === TaskItemStatus.Completed;
 
     this.taskService.updateTask(task).subscribe({
       next: () => this.updateTaskStats(),
-      error: (err) => console.error('Failed to update task', err)
+      error: (err) => console.error('Failed to update task status', err)
     });
   }
 
@@ -112,7 +113,7 @@ export class TaskManagerComponent implements OnInit {
   deleteTask(id: string): void {
     this.taskService.deleteTask(id).subscribe({
       next: () => {
-        this.tasks = this.tasks.filter(t => t.id !== id);
+        this.tasks = this.tasks.filter((t) => t.id !== id);
         this.updateTaskStats();
       },
       error: (err) => console.error('Failed to delete task', err)
@@ -120,27 +121,15 @@ export class TaskManagerComponent implements OnInit {
   }
 
   // Set current filter
-  setFilter(filter: 'all' | 'completed' | 'incomplete'): void {
+  setFilter(filter: 'all' | 'inprogress' | 'completed' | 'incomplete'): void {
     this.filter = filter;
   }
 
   // Update stats for completed and pending tasks
   updateTaskStats(): void {
     const list = Array.isArray(this.tasks) ? this.tasks : [];
-    this.completedCount = this.tasks.filter(t => t.status === TaskItemStatus.Completed).length;
-    this.pendingCount = list.length - this.completedCount;
-  }
-
-  // Optional: reusable counter method
-  getTaskCount(type: 'total' | 'completed' | 'pending'): number {
-    switch (type) {
-      case 'completed':
-        return this.completedCount;
-      case 'pending':
-        return this.pendingCount;
-      default:
-        return this.tasks.length;
-    }
+    this.completedCount = list.filter((t) => t.status === TaskItemStatus.Completed).length;
+    this.pendingCount = list.filter((t) => t.status === TaskItemStatus.Pending).length;
   }
 
   // Start editing task
@@ -170,7 +159,7 @@ export class TaskManagerComponent implements OnInit {
     this.editedTitle = '';
   }
 
-  // Label helper for template
+  // Label helper (kept for any template usage)
   statusLabel(s: TaskItemStatus | null | undefined): string {
     return taskStatusToLabel(s ?? null);
   }
