@@ -98,14 +98,18 @@ export class TaskManagerComponent implements OnInit {
   }
 
   /** chip-based status change */
-  onStatusChipChange(task: Task, value: TaskItemStatus): void {
-    if (task.status === value) return;
-    task.status = value;
-    task.isCompleted = value === TaskItemStatus.Completed;
+  onStatusChipChange(task: Task, newStatus: TaskItemStatus) {
+    const prev = task.status ?? (task.isCompleted ? TaskItemStatus.Completed : TaskItemStatus.Pending);
+    task.status = newStatus;
+    task.isCompleted = newStatus === TaskItemStatus.Completed;
 
-    this.taskService.updateTask(task).subscribe({
+    this.taskService.updateStatus(task.id, newStatus).subscribe({
       next: () => this.updateTaskStats(),
-      error: (err) => console.error('Failed to update task status', err)
+      error: () => {
+        // rollback on failure
+        task.status = prev;
+        task.isCompleted = prev === TaskItemStatus.Completed;
+      }
     });
   }
 

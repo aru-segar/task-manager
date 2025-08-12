@@ -93,5 +93,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskManagerAPI.Controllers.TaskController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/Task/{id}/status",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "TaskManagerAPI.Controllers.TaskController\u002BUpdateTaskStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

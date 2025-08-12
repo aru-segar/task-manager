@@ -8,5 +8,6 @@ namespace TaskManagerAPI.Interfaces
         Task<TaskItem> CreateTaskAsync(TaskItem task);
         Task<TaskItem?> UpdateTaskAsync(TaskItem updatedTask);
         Task<bool> DeleteTaskAsync(Guid taskId, Guid userId);
+        Task<TaskItem?> UpdateTaskStatusAsync(Guid taskId, Guid userId, int  status);
     }
 }

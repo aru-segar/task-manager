@@ -68,6 +68,7 @@
             'status-inprogress': task.status === TaskItemStatus.InProgress,
             'status-completed': task.status === TaskItemStatus.Completed
           }">
+
                     <!-- Task Content with Edit Mode -->
                     <div class="task-content">
                         <div *ngIf="editingTaskId === task.id; else viewMode" class="edit-mode">
@@ -91,7 +92,7 @@
                             <div class="task-meta-row">
                                 <div class="task-date">{{ task.createdAt | date: 'MMM d, h:mm a' }}</div>
 
-                                <!-- Compact, outlined status chips -->
+                                <!-- Status chips (compact, outlined) -->
                                 <mat-chip-listbox class="status-chips" [value]="task.status"
                                     (change)="onStatusChipChange(task, $event.value)" aria-label="Task status">
                                     <mat-chip-option [value]="TaskItemStatus.Pending" class="chip chip-pending">

@@ -2,6 +2,7 @@
 using TaskManagerAPI.Data;
 using TaskManagerAPI.Interfaces;
 using TaskManagerAPI.Models;
+using TaskManagerAPI.Models.Enums;
 
 namespace TaskManagerAPI.Services
 {
@@ -56,6 +57,22 @@ namespace TaskManagerAPI.Services
             task.DeletedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<TaskItem?> UpdateTaskStatusAsync(Guid taskId, Guid userId, int  status)
+        {
+            if (!Enum.IsDefined(typeof(TaskItemStatus), status)) return null;
+
+            var task = await _context.Tasks .FirstOrDefaultAsync(t => t.Id == taskId && t.userId == userId && !t.isDeleted);
+
+            if (task == null) return null;
+
+            task.Status = (TaskItemStatus)status;
+
+            task.IsCompleted = task.Status == TaskItemStatus.Completed;
+
+            await _context.SaveChangesAsync();
+            return task;
         }
     }
 }

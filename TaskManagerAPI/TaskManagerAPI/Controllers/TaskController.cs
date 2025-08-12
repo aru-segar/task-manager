@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TaskManagerAPI.Interfaces; // or Services if not using interfaces
+using TaskManagerAPI.Interfaces; 
 using TaskManagerAPI.Models;
 using TaskManagerAPI.Responses;
 using TaskManagerAPI.Exceptions;
@@ -123,6 +123,34 @@ namespace TaskManagerAPI.Controllers
             {
                 return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
             }
+        }
+
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateTaskStatusRequest body)
+        {
+            if (id == Guid.Empty)
+                return BadRequest(ApiResponse<object>.Fail("Invalid task id.", 400));
+
+            try
+            {
+                var updated = await _taskService.UpdateTaskStatusAsync(id, GetUserId(), body.Status);
+                return updated == null
+                    ? NotFound(ApiResponse<object>.Fail("Task not found or invalid status.", 404))
+                    : Ok(ApiResponse<TaskItem>.Ok(updated));
+            }
+            catch (AppException ex)
+            {
+                return StatusCode(ex.StatusCode, ApiResponse<object>.Fail(ex.Message, ex.StatusCode));
+            }
+            catch
+            {
+                return StatusCode(500, ApiResponse<object>.Fail("An unexpected error occurred.", 500));
+            }
+        }
+
+        public class UpdateTaskStatusRequest
+        {
+            public int Status {  get; set; }
         }
     }
 }

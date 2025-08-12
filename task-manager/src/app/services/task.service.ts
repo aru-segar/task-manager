@@ -47,4 +47,11 @@ export class TaskService {
       headers: this.getAuthHeaders()
     });
   }
+
+  // Update the status of a task
+  updateStatus(id: string, status: number): Observable<Task> {
+    return this.http.patch<Task>(`${this.baseUrl}/${id}/status`, { status }, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }
