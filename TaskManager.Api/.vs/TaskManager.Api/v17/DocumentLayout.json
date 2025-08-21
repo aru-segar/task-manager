@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\task-manager\\TaskManager.Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.domain\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|solutionrelative:taskmanager.domain\\entities\\taskitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.domain\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|solutionrelative:taskmanager.domain\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.domain\\taskmanager.domain.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|solutionrelative:taskmanager.domain\\taskmanager.domain.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.domain\\taskmanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|solutionrelative:taskmanager.domain\\taskmanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{202C67BF-B976-4225-B6CE-4B645C0C0245}|TaskManager.Application\\TaskManager.Application.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.application\\taskmanager.application.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{202C67BF-B976-4225-B6CE-4B645C0C0245}|TaskManager.Application\\TaskManager.Application.csproj|solutionrelative:taskmanager.application\\taskmanager.application.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
@@ -21,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E9BED021-B139-4037-8E5A-A821A37F97F9}|TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.infrastructure\\taskmanager.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{E9BED021-B139-4037-8E5A-A821A37F97F9}|TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj|solutionrelative:taskmanager.infrastructure\\taskmanager.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.domain\\taskmanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{902C7169-26C8-4FC7-94FB-E01E9C6C6AB4}|TaskManager.Domain\\TaskManager.Domain.csproj|solutionrelative:taskmanager.domain\\taskmanager.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E9BED021-B139-4037-8E5A-A821A37F97F9}|TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj|c:\\task-manager\\taskmanager.api\\taskmanager.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,6 +63,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TaskItem.cs",
+              "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\Entities\\TaskItem.cs",
+              "RelativeDocumentMoniker": "TaskManager.Domain\\Entities\\TaskItem.cs",
+              "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\Entities\\TaskItem.cs",
+              "RelativeToolTip": "TaskManager.Domain\\Entities\\TaskItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T08:09:44.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\Common\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "TaskManager.Domain\\Common\\BaseEntity.cs",
+              "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\Common\\BaseEntity.cs",
+              "RelativeToolTip": "TaskManager.Domain\\Common\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T08:03:49.817Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskManager.Domain",
+              "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\TaskManager.Domain.csproj",
+              "RelativeDocumentMoniker": "TaskManager.Domain\\TaskManager.Domain.csproj",
+              "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\TaskManager.Domain.csproj",
+              "RelativeToolTip": "TaskManager.Domain\\TaskManager.Domain.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-21T08:02:49.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TaskManager.Application",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Application\\TaskManager.Application.csproj",
               "RelativeDocumentMoniker": "TaskManager.Application\\TaskManager.Application.csproj",
@@ -62,46 +112,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "TaskManager.Api",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
               "RelativeDocumentMoniker": "TaskManager.Api\\TaskManager.Api.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
               "RelativeToolTip": "TaskManager.Api\\TaskManager.Api.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-21T07:50:31.102Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:50:31.102Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TaskManager.Infrastructure",
+              "DocumentIndex": 8,
+              "Title": "TaskManager.Infrastructure.csproj",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj",
               "RelativeDocumentMoniker": "TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj",
               "RelativeToolTip": "TaskManager.Infrastructure\\TaskManager.Infrastructure.csproj",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-21T07:11:18.99Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:11:18.99Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TaskManager.Api",
+              "DocumentIndex": 7,
+              "Title": "TaskManager.Api.csproj",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
               "RelativeDocumentMoniker": "TaskManager.Api\\TaskManager.Api.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
               "RelativeToolTip": "TaskManager.Api\\TaskManager.Api.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-21T07:44:45.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:44:45.106Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TaskManager.Domain",
+              "DocumentIndex": 3,
+              "Title": "TaskManager.Domain.csproj",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\TaskManager.Domain.csproj",
               "RelativeDocumentMoniker": "TaskManager.Domain\\TaskManager.Domain.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\TaskManager.Domain.csproj",
@@ -113,20 +160,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TaskManager.Application",
+              "DocumentIndex": 5,
+              "Title": "TaskManager.Application.csproj",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Application\\TaskManager.Application.csproj",
               "RelativeDocumentMoniker": "TaskManager.Application\\TaskManager.Application.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Application\\TaskManager.Application.csproj",
               "RelativeToolTip": "TaskManager.Application\\TaskManager.Application.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-21T07:45:20.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:45:20.394Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Infrastructure\\Class1.cs",
               "RelativeDocumentMoniker": "TaskManager.Infrastructure\\Class1.cs",
@@ -134,12 +180,11 @@
               "RelativeToolTip": "TaskManager.Infrastructure\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T07:08:46.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:08:46.665Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Domain\\Class1.cs",
               "RelativeDocumentMoniker": "TaskManager.Domain\\Class1.cs",
@@ -147,12 +192,11 @@
               "RelativeToolTip": "TaskManager.Domain\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T07:08:01.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:08:01.944Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Application\\Class1.cs",
               "RelativeDocumentMoniker": "TaskManager.Application\\Class1.cs",
@@ -160,8 +204,7 @@
               "RelativeToolTip": "TaskManager.Application\\Class1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T07:05:32.057Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T07:05:32.057Z"
             }
           ]
         }
