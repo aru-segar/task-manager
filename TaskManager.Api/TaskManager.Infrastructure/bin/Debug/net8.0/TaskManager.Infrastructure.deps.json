@@ -11,6 +11,8 @@
           "Microsoft.Data.SqlClient": "6.1.1",
           "Microsoft.EntityFrameworkCore": "9.0.8",
           "Microsoft.EntityFrameworkCore.Design": "9.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.8",
+          "Microsoft.EntityFrameworkCore.Tools": "9.0.8",
           "TaskManager.Application": "1.0.0",
           "TaskManager.Domain": "1.0.0"
         },
@@ -579,6 +581,28 @@
           }
         }
       },
+      "Microsoft.EntityFrameworkCore.SqlServer/9.0.8": {
+        "dependencies": {
+          "Microsoft.Data.SqlClient": "6.1.1",
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.8",
+          "Microsoft.Extensions.Caching.Memory": "9.0.8",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.8",
+          "Microsoft.Extensions.Logging": "9.0.8",
+          "System.Formats.Asn1": "9.0.8",
+          "System.Text.Json": "9.0.8"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {
+            "assemblyVersion": "9.0.8.0",
+            "fileVersion": "9.0.825.36802"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/9.0.8": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "9.0.8"
+        }
+      },
       "Microsoft.Extensions.Caching.Abstractions/9.0.8": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.8"
@@ -922,6 +946,14 @@
           }
         }
       },
+      "System.Formats.Asn1/9.0.8": {
+        "runtime": {
+          "lib/net8.0/System.Formats.Asn1.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.825.36511"
+          }
+        }
+      },
       "System.IdentityModel.Tokens.Jwt/7.7.1": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "8.0.1",
@@ -1225,6 +1257,20 @@
       "path": "microsoft.entityframeworkcore.relational/9.0.8",
       "hashPath": "microsoft.entityframeworkcore.relational.9.0.8.nupkg.sha512"
     },
+    "Microsoft.EntityFrameworkCore.SqlServer/9.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yNZJIdLQTTHj6FTv9+IUQwmQvOwvUanTBOG1ibeTaaB1zfTtOqrSFQnjMOkcKOgxu+ofsBEDcuctb/f5xj/Oog==",
+      "path": "microsoft.entityframeworkcore.sqlserver/9.0.8",
+      "hashPath": "microsoft.entityframeworkcore.sqlserver.9.0.8.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/9.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gtjwfJsEB5Mz5qOhdYjm+9KWJEVmVu5xxOgrxHxW6dNmhGfwdNXnNx5Nvdk6IHt0hmn0OK6MREMZEOsjrnSCfA==",
+      "path": "microsoft.entityframeworkcore.tools/9.0.8",
+      "hashPath": "microsoft.entityframeworkcore.tools.9.0.8.nupkg.sha512"
+    },
     "Microsoft.Extensions.Caching.Abstractions/9.0.8": {
       "type": "package",
       "serviceable": true,
@@ -1448,6 +1494,13 @@
       "sha512": "sha512-n1ZP7NM2Gkn/MgD8+eOT5MulMj6wfeQMNS2Pizvq5GHCZfjlFMXV2irQlQmJhwA2VABC57M0auudO89Iu2uRLg==",
       "path": "system.diagnostics.eventlog/8.0.1",
       "hashPath": "system.diagnostics.eventlog.8.0.1.nupkg.sha512"
+    },
+    "System.Formats.Asn1/9.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gGL0gt2nAArsF2oOMFzClll6QN2FhtooTxEQ+K26uer4lrhahnYIo/qOn5HUSfjHlM91646L5/7dYIMJ86fHkQ==",
+      "path": "system.formats.asn1/9.0.8",
+      "hashPath": "system.formats.asn1.9.0.8.nupkg.sha512"
     },
     "System.IdentityModel.Tokens.Jwt/7.7.1": {
       "type": "package",
