@@ -13,7 +13,6 @@ C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\Azure.Identity.
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\FluentValidation.dll
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\MediatR.dll
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\MediatR.Contracts.dll
-C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
 C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
@@ -98,3 +97,4 @@ C:\task-manager\TaskManager.Api\TaskManager.Api\obj\Debug\net8.0\refint\TaskMana
 C:\task-manager\TaskManager.Api\TaskManager.Api\obj\Debug\net8.0\TaskManager.Api.pdb
 C:\task-manager\TaskManager.Api\TaskManager.Api\obj\Debug\net8.0\TaskManager.Api.genruntimeconfig.cache
 C:\task-manager\TaskManager.Api\TaskManager.Api\obj\Debug\net8.0\ref\TaskManager.Api.dll
+C:\task-manager\TaskManager.Api\TaskManager.Api\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
