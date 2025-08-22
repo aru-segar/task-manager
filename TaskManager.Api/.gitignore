@@ -1,0 +1,56 @@
+# Build results
+bin/
+obj/
+out/
+artifacts/
+
+# Visual Studio cache / settings
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
+# (NuGet restore will fetch these)
+
+# Entity Framework Migrations auto-generated files (optional)
+*Migrations/*.Designer.cs
+*Migrations/*ModelSnapshot.cs
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Publish / Deploy
+publish/
+*.pubxml
+*.publishsettings
+
+# Azure / IIS artifacts
+*.azurePubxml
+*.pubxml.user

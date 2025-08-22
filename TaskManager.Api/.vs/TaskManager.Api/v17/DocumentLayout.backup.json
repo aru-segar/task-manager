@@ -166,13 +166,12 @@
               "RelativeToolTip": "TaskManager.Api\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T06:54:58.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T06:54:58.607Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TaskManager.Api",
+              "Title": "TaskManager.Api.csproj",
               "DocumentMoniker": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
               "RelativeDocumentMoniker": "TaskManager.Api\\TaskManager.Api.csproj",
               "ToolTip": "C:\\task-manager\\TaskManager.Api\\TaskManager.Api\\TaskManager.Api.csproj",
@@ -192,8 +191,7 @@
               "RelativeToolTip": "TaskManager.Api\\Controllers\\TasksController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T07:56:16.229Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T07:56:16.229Z"
             },
             {
               "$type": "Document",
@@ -205,8 +203,7 @@
               "RelativeToolTip": "TaskManager.Api\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-22T06:48:13.353Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-22T06:48:13.353Z"
             },
             {
               "$type": "Document",
@@ -266,8 +263,7 @@
               "RelativeToolTip": "TaskManager.Application\\Behaviors\\ValidationBehavior.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAcwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T09:01:47.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T09:01:47.637Z"
             },
             {
               "$type": "Document",
